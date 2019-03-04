@@ -4,33 +4,50 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+
+
 class App extends Component {
+  state={
+    todos: [
+      { key: String(Math.floor(1000*Math.random())),
+        title: 'Walk the cat',
+       description: 'She is going crazy'},
+      { key: String(Math.floor(1000*Math.random())),
+        title: 'Pacify Aliens',
+       description: 'They don\'t want to hear Halloween jokes anymore'}
+    ],
+    collapse: false
+  }
+
+  listTodos = () => {
+    const todos = [...this.state.todos];
+    return todos.map(
+      item => (
+        <ListGroup.Item key={item.key}>
+        <Card className="bg-light border rounded">
+          <span className="text-right">{'\u274e'}</span>
+          <Card.Body className="text-left">
+            <h5 >{item.title}</h5>
+            <p>{item.description}</p>
+          </Card.Body>
+        </Card>
+      </ListGroup.Item>
+      )
+    )
+  }
+
   render() {
+    console.log(this.listTodos())
     return (
       <div className="App">
         <Container>
-          <header className="App-header">
+          <header className="App-header text-left">
             <h1>React Based ToDo List</h1>
           </header> 
           <ListGroup>
-            <ListGroup.Item>
-              <Card className="bg-light border rounded">
-                <Card.Body className="text-left">
-                  <h5 >This is a title</h5>
-                  <p>This is the description</p>
-                </Card.Body>
-              </Card>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Card className="bg-light border rounded">
-                <Card.Body className="text-left">
-                  <h5 >This is another title</h5>
-                  <p>This is another description</p>
-                </Card.Body>
-              </Card>
-            </ListGroup.Item>
+            {this.listTodos()}
           </ListGroup>
-          <h2>Add A ToDo</h2>
+          <h2 className='text-left'>Add A ToDo</h2>
           <Form className="text-left">
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Title</Form.Label>
