@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-
+import Button from 'react-bootstrap/Button';
 
 class App extends Component {
   state={
@@ -36,7 +36,16 @@ class App extends Component {
     )
   }
 
-  render() {
+  addTodoHandler = (event) => {
+    event.preventDefault()
+    console.log(event.target)
+    let formNode = (event.target).ParentNode;
+    console.log('formnode: '+formNode);
+    //let title = formNode.querySelector('input').value
+    //console.log('Title: '+title);
+
+  }
+  render = () => {
     console.log(this.listTodos())
     return (
       <div className="App">
@@ -55,6 +64,9 @@ class App extends Component {
               <Form.Label>Description</Form.Label>
               <Form.Control as="textarea" rows="3" placeholder="Enter Description" />
             </Form.Group>
+            <Button variant="primary" type="submit" onClick={this.addTodoHandler}>
+            Add Todo
+            </Button>
           </Form>
         </Container>
       </div>
