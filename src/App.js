@@ -1,52 +1,31 @@
+
 import React, { Component } from 'react';
 import './App.css';
 import Container from 'react-bootstrap/Container';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
-
-let ListTodos = (props) => {
-  const todos = [...this.state.todos];
-  return todos.map(
-    item => (
-      <ListGroup.Item key={item.key}>
-      <Card className="bg-light border rounded">
-        <span 
-        className="text-right"
-        onClick={props.close}>{'\u274e'}</span>
-        <Card.Body className="text-left">
-          <h5 >{item.title}</h5>
-          <p>{item.description}</p>
-        </Card.Body>
-      </Card>
-    </ListGroup.Item>
-    )
-  )
-}
+import ListTodos from './ListTodos/ListTodos.js';
+import {generate} from 'randomstring';
 
 class App extends Component {
-  state={
-    todos: [
-      { key: String(Math.floor(1000*Math.random())),
-        title: 'Walk the cat',
-       description: 'She is going crazy'},
-      { key: String(Math.floor(1000*Math.random())),
-        title: 'Pacify Aliens',
-       description: 'They don\'t want to hear Halloween jokes anymore'}
+  state = {
+    "todos": [
+      { "key": generate(10),
+        "title": 'Walk the cat',
+        "description": 'She is going crazy'},
+      { "key": generate(10),
+        "title": 'Pacify Aliens',
+        "description": 'They don\'t want to hear Halloween jokes anymore'}
     ],
-    collapse: false,
-    formTitle: '',
-    formDescription: ''
+    "collapse": false,
+    "formTitle": '',
+    "formDescription": ''
   }
-
-
 
   addTodoHandler = (event) => {
     event.preventDefault();
     let newTodo = {
-      key: String(Math.floor(1000*Math.random())),
+      key: generate(10),
       title: this.state.formTitle,
       description: this.state.formDescription
     };
@@ -54,17 +33,25 @@ class App extends Component {
     this.setState({formTitle:''});
     this.setState({formDescription:''})
   }
+
+  closeTodoHandler = (key,e) => {
+    let todos = [...this.state.todos];
+    let deleteIndex = todos.findIndex((item)=>item.key===key);
+    todos.splice(deleteIndex, 1);
+    this.setState({"todos":todos});
+  }
+
   render = () => {
-    console.log(this.listTodos())
     return (
       <div className="App">
         <Container>
           <header className="App-header text-left">
             <h1>React Based ToDo List</h1>
-          </header> 
-          <ListGroup>
-            <ListTodos close={(e)=>{console.log(e.target.key)}}/>
-          </ListGroup>
+          </header>
+          <ListTodos 
+            todos={this.state.todos}
+            closer={this.closeTodoHandler}>
+          </ListTodos>
           <h2 className='text-left'>Add A ToDo</h2>
           <Form className="text-left" onSubmit={this.addTodoHandler}>
             <Form.Group controlId="formToDo">
