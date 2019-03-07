@@ -1,3 +1,10 @@
+# Demo Todo App Using React and React-Bootsrap and Bootstrap.css
+
+In our previous example, [js-todo-dom-only](https://github.com/mdogy/js-todo-dom-only) we stored our todos right in the DOM itself, and our events called functions that manipulated the DOM directly. This is only slightly less brain dead. React will allow us to separate our data from the DOM. We will store our data as "state" in our component object. We write code that renders the data out, from data to DOM. If we think of our data/state as "model" that is "model" renders to "view" ... what we see. Then we insert controllers to handle events in the DOM, but those what those "controllers" do to the "model" is implemented near the model ... they don't really sit in the rendering of the DOM, they just get passed there. This is a version of "Model"-"View"-"Controller". The controller changes the model. React lets the model effect the view. Nice one way flow.
+
+Another advantage of this design is that the model, being a javascript object, is ready to be grabbed and possibly sent to a server. That is our next threshold. Meanwile digest this.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
